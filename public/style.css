@@ -22,7 +22,12 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+@media (max-width: 700px) {
   .crosshair {
-    pointer-events: none;
+    pointer-events: auto;
+    position: absolute;
+    z-index: 15;
+    touch-action: none;
   }
+}
 }
