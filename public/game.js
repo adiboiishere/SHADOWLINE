@@ -86,84 +86,167 @@ function shoot(){
   lastShot=now; socket.emit("shoot",{yaw,pitch});
   gun.rotation.z=-.06; setTimeout(()=>gun.rotation.z=0,80);
 }
-function setupMobile(){
-  const stickEl=document.querySelector("#stick");
-  const knob=document.querySelector("#knob");
-  const fire=document.querySelector("#fire");
-  const hud=document.querySelector(".hud");
+function setupMobile() {
+  const stickEl = document.querySelector("#stick");
+  const knob = document.querySelector("#knob");
+  const fire = document.querySelector("#fire");
+  const hud = document.querySelector(".hud");
 
-  // Left side: virtual movement joystick.
-  let activePointer=null;
-  const resetStick=()=>{
-    stick.x=0; stick.y=0;
-    knob.style.transform="translate(0px,0px)";
-  };
-  const updateStick=(e)=>{
-    const r=stickEl.getBoundingClientRect();
-    let dx=e.clientX-(r.left+r.width/2);
-    let dy=e.clientY-(r.top+r.height/2);
-    const max=42, d=Math.hypot(dx,dy);
-    if(d>max){ dx=dx/d*max; dy=dy/d*max; }
-    stick.x=dx/max;
-    stick.y=dy/max;
-    knob.style.transform=`translate(${dx}px,${dy}px)`;
-  };
+  // =========================
+  // MOVEMENT JOYSTICK
+  // =========================
+  let stickPointer = null;
 
-  stickEl.addEventListener("pointerdown",e=>{
+  function resetStick() {
+    stick.x = 0;
+    stick.y = 0;
+    knob.style.transform = "translate(0px, 0px)";
+  }
+
+  function updateStick(e) {
+    const rect = stickEl.getBoundingClientRect();
+
+    let dx = e.clientX - (rect.left + rect.width / 2);
+    let dy = e.clientY - (rect.top + rect.height / 2);
+
+    const max = 42;
+    const distance = Math.hypot(dx, dy);
+
+    if (distance > max) {
+      dx = (dx / distance) * max;
+      dy = (dy / distance) * max;
+    }
+
+    stick.x = dx / max;
+    stick.y = dy / max;
+
+    knob.style.transform = `translate(${dx}px, ${dy}px)`;
+  }
+
+  stickEl.addEventListener("pointerdown", (e) => {
     e.preventDefault();
-    activePointer=e.pointerId;
+
+    stickPointer = e.pointerId;
     stickEl.setPointerCapture(e.pointerId);
+
     updateStick(e);
   });
-  stickEl.addEventListener("pointermove",e=>{
-    if(e.pointerId===activePointer){e.preventDefault();updateStick(e);}
-  });
-  stickEl.addEventListener("pointerup",e=>{
-    if(e.pointerId===activePointer){activePointer=null;resetStick();}
-  });
-  stickEl.addEventListener("pointercancel",()=>{activePointer=null;resetStick();});
 
-  // Right side: swipe/drag anywhere outside the joystick to look around.
-  let lookPointer=null, lastX=0, lastY=0;
-  hud.addEventListener("pointerdown",e=>{
-    if(e.target.closest("#stick") || e.target.closest("#fire")) return;
-    if(e.pointerType==="mouse") return;
-    e.preventDefault();
-    lookPointer=e.pointerId;
-    lastX=e.clientX; lastY=e.clientY;
-    hud.setPointerCapture?.(e.pointerId);
-  });
-  hud.addEventListener("pointermove",e=>{
-    if(e.pointerId!==lookPointer)return;
-    e.preventDefault();
-    const dx=e.clientX-lastX, dy=e.clientY-lastY;
-    lastX=e.clientX; lastY=e.clientY;
-    yaw-=dx*0.006;
-    pitch-=dy*0.006;
-    pitch=Math.max(-1.35,Math.min(1.35,pitch));
-  });
-  const stopLook=e=>{
-    if(e.pointerId===lookPointer) lookPointer=null;
-  };
-  hud.addEventListener("pointerup",stopLook);
-  hud.addEventListener("pointercancel",stopLook);
+  stickEl.addEventListener("pointermove", (e) => {
+    if (e.pointerId !== stickPointer) return;
 
-  // Fire button supports tap and press-and-hold.
-  let fireTimer=null;
-  const fireStart=e=>{
     e.preventDefault();
+    updateStick(e);
+  });
+
+  stickEl.addEventListener("pointerup", (e) => {
+    if (e.pointerId !== stickPointer) return;
+
+    stickPointer = null;
+    resetStick();
+  });
+
+  stickEl.addEventListener("pointercancel", () => {
+    stickPointer = null;
+    resetStick();
+  });
+
+  // =========================
+  // MOBILE AIM / CURSOR
+  // =========================
+  let aimPointer = null;
+  let lastX = 0;
+  let lastY = 0;
+
+  hud.addEventListener(
+    "pointerdown",
+    (e) => {
+      // Don't start aiming when touching controls
+      if (
+        e.target.closest("#stick") ||
+        e.target.closest("#fire")
+      ) {
+        return;
+      }
+
+      // Desktop mouse uses Pointer Lock instead
+      if (e.pointerType === "mouse") return;
+
+      e.preventDefault();
+
+      aimPointer = e.pointerId;
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      hud.setPointerCapture?.(e.pointerId);
+    },
+    { passive: false }
+  );
+
+  hud.addEventListener(
+    "pointermove",
+    (e) => {
+      if (e.pointerId !== aimPointer) return;
+
+      e.preventDefault();
+
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      // Horizontal camera rotation
+      yaw -= dx * 0.006;
+
+      // Vertical camera rotation
+      pitch -= dy * 0.006;
+
+      pitch = Math.max(
+        -1.35,
+        Math.min(1.35, pitch)
+      );
+    },
+    { passive: false }
+  );
+
+  function stopAim(e) {
+    if (e.pointerId === aimPointer) {
+      aimPointer = null;
+    }
+  }
+
+  hud.addEventListener("pointerup", stopAim);
+  hud.addEventListener("pointercancel", stopAim);
+
+  // =========================
+  // FIRE BUTTON
+  // =========================
+  let fireTimer = null;
+
+  function startFire(e) {
+    e.preventDefault();
+
     shoot();
+
     clearInterval(fireTimer);
-    fireTimer=setInterval(shoot,120);
-  };
-  const fireStop=e=>{
-    if(e) e.preventDefault();
-    clearInterval(fireTimer); fireTimer=null;
-  };
-  fire.addEventListener("pointerdown",fireStart);
-  fire.addEventListener("pointerup",fireStop);
-  fire.addEventListener("pointercancel",fireStop);
-  fire.addEventListener("pointerleave",fireStop);
+
+    fireTimer = setInterval(() => {
+      shoot();
+    }, 120);
+  }
+
+  function stopFire(e) {
+    if (e) e.preventDefault();
+
+    clearInterval(fireTimer);
+    fireTimer = null;
+  }
+
+  fire.addEventListener("pointerdown", startFire);
+  fire.addEventListener("pointerup", stopFire);
+  fire.addEventListener("pointercancel", stopFire);
+  fire.addEventListener("pointerleave", stopFire);
 }
 
 function animate(){
