@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>SHADOWLINE — Multiplayer FPP</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="menu" class="menu">
+  <div class="brand">SHADOW<span>LINE</span></div>
+  <div class="tag">MULTIPLAYER FPP ARENA</div>
+  <div class="panel">
+    <label>CALLSIGN</label>
+    <input id="name" maxlength="18" placeholder="Enter callsign" autocomplete="off">
+    <button id="create" class="primary">CREATE MATCH</button>
+    <div class="or"><i></i> OR <i></i></div>
+    <div class="join">
+      <input id="room" maxlength="5" placeholder="ROOM CODE">
+      <button id="join">JOIN</button>
+    </div>
+    <div id="error"></div>
+  </div>
+  <div class="rules">
+    <b>MISSION</b>
+    <span>First operative to 10 eliminations wins. Body hits deal 34 damage; headshots are instant eliminations. Respawn after 2.5 seconds. <b>Mobile: left joystick moves, drag the right side to look, FIRE to shoot.</b></span>
+  </div>
+</div>
+
+<div id="game" class="hidden">
+  <canvas id="view"></canvas>
+  <div class="hud">
+    <div class="top">
+      <div class="brand tiny">SHADOW<span>LINE</span></div>
+      <div class="room">ROOM <b id="roomLabel">-----</b></div>
+      <div class="status"><span id="connection">● ONLINE</span></div>
+    </div>
+    <div id="scoreboard" class="scoreboard"></div>
+    <div class="crosshair"><span></span><i></i></div>
+    <div class="bottom">
+      <div class="health"><div class="hpbar"><span id="hp"></span></div><b id="hpText">100</b></div>
+      <div class="ammo">● <b>∞</b></div>
+    </div>
+    <div id="message" class="message"></div>
+    <div id="killfeed"></div>
+    <div id="scope"></div>
+    <div id="mobileControls">
+      <div id="stick" class="stick"><div id="knob"></div></div>
+      <button id="fire">FIRE</button>
+    </div>
+  </div>
+</div>
+<script type="importmap">
+{"imports":{"three":"/vendor/three/build/three.module.js"}}
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/game.js"></script>
+</body>
+</html>

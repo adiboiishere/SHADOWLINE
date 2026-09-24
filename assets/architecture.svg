@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430">
+<defs><linearGradient id="a" x1="0" x2="1"><stop stop-color="#0b1014"/><stop offset="1" stop-color="#182126"/></linearGradient></defs>
+<rect width="1200" height="430" rx="24" fill="#070a0d"/>
+<text x="600" y="48" text-anchor="middle" fill="#d5ff38" font-family="Arial" font-size="24" font-weight="800">SHADOWLINE REAL-TIME ARCHITECTURE</text>
+<g font-family="Arial" text-anchor="middle">
+<rect x="55" y="105" width="250" height="220" rx="18" fill="url(#a)" stroke="#344047"/>
+<text x="180" y="140" fill="#fff" font-size="20" font-weight="800">PLAYERS</text>
+<rect x="90" y="170" width="180" height="42" rx="9" fill="#10171b" stroke="#d5ff38"/><text x="180" y="197" fill="#d5ff38" font-size="15">Desktop / Mouse</text>
+<rect x="90" y="225" width="180" height="42" rx="9" fill="#10171b" stroke="#d5ff38"/><text x="180" y="252" fill="#d5ff38" font-size="15">Mobile / Touch</text>
+<rect x="90" y="280" width="180" height="25" rx="7" fill="#10171b"/><text x="180" y="298" fill="#87949d" font-size="12">2–8 players per room</text>
+<rect x="475" y="105" width="250" height="220" rx="18" fill="url(#a)" stroke="#344047"/>
+<text x="600" y="140" fill="#fff" font-size="20" font-weight="800">SOCKET.IO</text>
+<text x="600" y="170" fill="#87949d" font-size="13">Real-time event transport</text>
+<rect x="510" y="195" width="180" height="38" rx="9" fill="#10171b"/><text x="600" y="219" fill="#d5ff38" font-size="14">State sync</text>
+<rect x="510" y="244" width="180" height="38" rx="9" fill="#10171b"/><text x="600" y="268" fill="#d5ff38" font-size="14">Shots / hits / respawns</text>
+<rect x="895" y="105" width="250" height="220" rx="18" fill="url(#a)" stroke="#344047"/>
+<text x="1020" y="140" fill="#fff" font-size="20" font-weight="800">NODE SERVER</text>
+<text x="1020" y="170" fill="#87949d" font-size="13">Authoritative game state</text>
+<rect x="930" y="195" width="180" height="38" rx="9" fill="#10171b"/><text x="1020" y="219" fill="#d5ff38" font-size="14">Health + scores</text>
+<rect x="930" y="244" width="180" height="38" rx="9" fill="#10171b"/><text x="1020" y="268" fill="#d5ff38" font-size="14">Hit validation</text>
+<path d="M305 215H475M725 215H895" stroke="#d5ff38" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M895 255H725M475 255H305" stroke="#d5ff38" stroke-width="3" opacity=".5"/>
+<text x="390" y="202" fill="#87949d" font-size="12">WebSocket</text><text x="810" y="202" fill="#87949d" font-size="12">Events</text>
+</g>
+</svg>

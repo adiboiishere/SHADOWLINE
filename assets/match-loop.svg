@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="260" viewBox="0 0 1000 260">
+<rect width="1000" height="260" rx="20" fill="#070a0d"/>
+<g font-family="Arial">
+<text x="500" y="42" text-anchor="middle" fill="#d5ff38" font-size="22" font-weight="800">MATCH LOOP</text>
+<g text-anchor="middle">
+<rect x="45" y="85" width="150" height="95" rx="14" fill="#11181c" stroke="#29353b"/><text x="120" y="120" fill="#fff" font-size="16" font-weight="800">JOIN</text><text x="120" y="146" fill="#89969f" font-size="12">Share room code</text>
+<rect x="225" y="85" width="150" height="95" rx="14" fill="#11181c" stroke="#29353b"/><text x="300" y="120" fill="#fff" font-size="16" font-weight="800">AIM</text><text x="300" y="146" fill="#89969f" font-size="12">Move + look</text>
+<rect x="405" y="85" width="150" height="95" rx="14" fill="#11181c" stroke="#29353b"/><text x="480" y="120" fill="#fff" font-size="16" font-weight="800">FIRE</text><text x="480" y="146" fill="#89969f" font-size="12">Hit validation</text>
+<rect x="585" y="85" width="150" height="95" rx="14" fill="#11181c" stroke="#29353b"/><text x="660" y="120" fill="#fff" font-size="16" font-weight="800">RESPAWN</text><text x="660" y="146" fill="#89969f" font-size="12">2.5 seconds</text>
+<rect x="765" y="85" width="190" height="95" rx="14" fill="#d5ff38"/><text x="860" y="120" fill="#10140d" font-size="16" font-weight="900">10 ELIMS</text><text x="860" y="146" fill="#26300e" font-size="12">Win the match</text>
+</g>
+<g stroke="#d5ff38" stroke-width="2" opacity=".7"><path d="M195 132H225M375 132H405M555 132H585M735 132H765"/></g>
+</svg>

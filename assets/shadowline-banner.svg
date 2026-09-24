@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#05070a"/><stop offset="1" stop-color="#11191d"/></linearGradient>
+  <linearGradient id="lime" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d5ff38"/><stop offset="1" stop-color="#8cff55"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+<path d="M0 285 L160 220 L290 265 L430 185 L580 250 L730 170 L880 235 L1040 145 L1200 205 L1200 360 L0 360Z" fill="#0c1417"/>
+<g opacity=".25" stroke="#d5ff38"><path d="M0 285H1200"/><path d="M0 315H1200"/><path d="M80 360L500 0"/><path d="M260 360L680 0"/><path d="M440 360L860 0"/><path d="M620 360L1040 0"/></g>
+<circle cx="930" cy="115" r="70" fill="none" stroke="#d5ff38" stroke-width="2" opacity=".45"/>
+<circle cx="930" cy="115" r="34" fill="none" stroke="#d5ff38" stroke-width="2" opacity=".65"/>
+<path d="M930 28V202M843 115H1017" stroke="#d5ff38" stroke-width="2" opacity=".6"/>
+<path d="M900 310 L930 205 L960 310 Z" fill="#151c20" stroke="#263238"/>
+<rect x="914" y="225" width="32" height="100" rx="8" fill="#080a0b"/>
+<path d="M930 208 L970 235" stroke="#080a0b" stroke-width="14" stroke-linecap="round"/>
+<text x="70" y="130" fill="#f4f7f8" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="900" letter-spacing="-3">SHADOW</text>
+<text x="70" y="205" fill="url(#lime)" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="900" letter-spacing="-3">LINE</text>
+<text x="74" y="245" fill="#8d9aa3" font-family="Arial,Helvetica,sans-serif" font-size="17" letter-spacing="5">MULTIPLAYER FPP ARENA</text>
+<rect x="74" y="272" width="240" height="38" rx="19" fill="#d5ff38"/>
+<text x="194" y="297" text-anchor="middle" fill="#10140d" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="800">FIRST TO 10 ELIMINATIONS</text>
+</svg>
