@@ -31,3 +31,32 @@
   }
 }
 }
+@media (max-width: 700px) {
+
+  html,
+  body,
+  #game,
+  #view {
+    touch-action: none;
+    overscroll-behavior: none;
+  }
+
+  .hud {
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .stick,
+  #knob,
+  #fire {
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .crosshair {
+    pointer-events: none;
+  }
+
+}
