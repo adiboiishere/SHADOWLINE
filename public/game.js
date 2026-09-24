@@ -151,70 +151,70 @@ function setupMobile() {
     resetStick();
   });
 
-  // =========================
-  // MOBILE AIM / CURSOR
-  // =========================
-  let aimPointer = null;
-  let lastX = 0;
-  let lastY = 0;
+// =========================
+// MOBILE TOUCH AIM CURSOR
+// =========================
 
-  hud.addEventListener(
-    "pointerdown",
-    (e) => {
-      // Don't start aiming when touching controls
-      if (
-        e.target.closest("#stick") ||
-        e.target.closest("#fire")
-      ) {
-        return;
-      }
+let aimPointer = null;
 
-      // Desktop mouse uses Pointer Lock instead
-      if (e.pointerType === "mouse") return;
+function updateMobileAim(e) {
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
 
-      e.preventDefault();
+  const dx = e.clientX - centerX;
+  const dy = e.clientY - centerY;
 
-      aimPointer = e.pointerId;
-      lastX = e.clientX;
-      lastY = e.clientY;
+  yaw -= dx * 0.0025;
+  pitch -= dy * 0.0025;
 
-      hud.setPointerCapture?.(e.pointerId);
-    },
-    { passive: false }
+  pitch = Math.max(
+    -1.35,
+    Math.min(1.35, pitch)
   );
+}
 
-  hud.addEventListener(
-    "pointermove",
-    (e) => {
-      if (e.pointerId !== aimPointer) return;
+hud.addEventListener("pointerdown", (e) => {
 
-      e.preventDefault();
-
-      const dx = e.clientX - lastX;
-      const dy = e.clientY - lastY;
-
-      lastX = e.clientX;
-      lastY = e.clientY;
-
-      // Horizontal camera rotation
-      yaw -= dx * 0.006;
-
-      // Vertical camera rotation
-      pitch -= dy * 0.006;
-
-      pitch = Math.max(
-        -1.35,
-        Math.min(1.35, pitch)
-      );
-    },
-    { passive: false }
-  );
-
-  function stopAim(e) {
-    if (e.pointerId === aimPointer) {
-      aimPointer = null;
-    }
+  if (
+    e.target.closest("#stick") ||
+    e.target.closest("#fire")
+  ) {
+    return;
   }
+
+  if (e.pointerType === "mouse") return;
+
+  e.preventDefault();
+
+  aimPointer = e.pointerId;
+
+  hud.setPointerCapture(e.pointerId);
+
+  updateMobileAim(e);
+});
+
+hud.addEventListener("pointermove", (e) => {
+
+  if (e.pointerId !== aimPointer) return;
+
+  e.preventDefault();
+
+  updateMobileAim(e);
+});
+
+hud.addEventListener("pointerup", (e) => {
+
+  if (e.pointerId === aimPointer) {
+    aimPointer = null;
+  }
+});
+
+hud.addEventListener("pointercancel", (e) => {
+
+  if (e.pointerId === aimPointer) {
+    aimPointer = null;
+  }
+});
 
   hud.addEventListener("pointerup", stopAim);
   hud.addEventListener("pointercancel", stopAim);
